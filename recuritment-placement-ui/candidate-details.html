@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RPMS - Companies</title>
+
+<style>
+
+/* General CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f6fa;
+    color: #333;
+}
+
+/* Header */
+
+.header {
+    background: #123f70;
+    color: white;
+    padding: 17px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: orange;
+}
+
+.user-info {
+    font-size: 13px;
+}
+
+/* Layout */
+
+.container {
+    display: flex;
+    min-height: 90vh;
+}
+
+/* Sidebar */
+
+.sidebar {
+    width: 230px;
+    background: #173b61;
+    padding: 20px 10px;
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    display: block;
+    color: #dce8f5;
+    text-decoration: none;
+    padding: 13px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2876b8;
+    color: white;
+}
+
+/* Main Content */
+
+.main-content {
+    flex: 1;
+    padding: 25px;
+    min-width: 0;
+}
+
+.page-title {
+    color: #123f70;
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Summary Cards */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.summary-card {
+    background: white;
+    padding: 20px;
+    border-radius: 9px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.summary-card h2 {
+    color: #1769aa;
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.summary-card p {
+    color: #718096;
+    font-size: 13px;
+}
+
+/* Filter Section */
+
+.filter-panel {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.filter-panel h3 {
+    color: #123f70;
+    margin-bottom: 20px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccd5df;
+    border-radius: 5px;
+    outline: none;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #1769aa;
+}
+
+/* Buttons */
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.primary {
+    background: #1769aa;
+    color: white;
+}
+
+.secondary {
+    background: #e5eaf0;
+    color: #333;
+}
+
+.success {
+    background: #168344;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* Company Table */
+
+.table-section {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.table-heading h3 {
+    color: #123f70;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+th {
+    background: #123f70;
+    color: white;
+    padding: 13px;
+    text-align: left;
+    font-size: 13px;
+}
+
+td {
+    padding: 13px;
+    border-bottom: 1px solid #e5eaf0;
+    font-size: 13px;
+}
+
+tbody tr:nth-child(even) {
+    background: #f5f8fc;
+}
+
+tbody tr:hover {
+    background: #eaf3fb;
+}
+
+/* Status Badges */
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.active-status {
+    background: #e1f7e9;
+    color: #168344;
+}
+
+.inactive-status {
+    background: #ffe3e3;
+    color: #c0392b;
+}
+
+/* Actions */
+
+.action-link {
+    color: #1769aa;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* Pagination */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.pagination button {
+    padding: 9px 14px;
+    border: 1px solid #ccd5df;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background: #1769aa;
+    color: white;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 18px;
+    color: #8793a0;
+    font-size: 12px;
+}
+
+/* Responsive */
+
+@media(max-width: 900px) {
+
+    .filter-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media(max-width: 650px) {
+
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .sidebar a {
+        display: inline-block;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="logo">
+        Kiran<span>Academy</span>
+    </div>
+
+    <div class="user-info">
+        Welcome, Recruiter
+    </div>
+
+</header>
+
+
+<div class="container">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <h3>RPMS MENU</h3>
+
+    <a href="dashboard.html">🏠 Dashboard</a>
+
+    <a href="candidates.html">👥 Candidates</a>
+
+    <a href="companies.html" class="active">
+        🏢 Companies
+    </a>
+
+    <a href="jobs.html">💼 Jobs</a>
+
+    <a href="applications.html">📄 Applications</a>
+
+    <a href="interviews.html">📅 Interviews</a>
+
+    <a href="placement-process.html">
+        🎓 Placement Process
+    </a>
+
+    <a href="reports.html">📊 Reports</a>
+
+    <a href="login.html">🚪 Logout</a>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+
+<main class="main-content">
+
+    <h1 class="page-title">
+        Company Management
+    </h1>
+
+    <p class="subtitle">
+        Manage employer information and company records.
+    </p>
+
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="summary">
+
+        <div class="summary-card">
+
+            <h2 id="totalCompanies">5</h2>
+
+            <p>Total Companies</p>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h2 id="activeCompanies">4</h2>
+
+            <p>Active Companies</p>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h2 id="inactiveCompanies">1</h2>
+
+            <p>Inactive Companies</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- FILTER PANEL -->
+
+    <section class="filter-panel">
+
+        <h3>Company Filters</h3>
+
+        <div class="filter-grid">
+
+            <div class="form-group">
+
+                <label>Company Name</label>
+
+                <input type="text"
+                id="companyName"
+                placeholder="Enter Company Name">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Industry</label>
+
+                <select id="industry">
+
+                    <option value="">All Industries</option>
+
+                    <option>IT</option>
+
+                    <option>Banking</option>
+
+                    <option>Education</option>
+
+                    <option>Healthcare</option>
+
+                    <option>Manufacturing</option>
+
+                    <option>Consulting</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Location</label>
+
+                <input type="text"
+                id="location"
+                placeholder="Enter Location">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Company Type</label>
+
+                <select id="companyType">
+
+                    <option value="">All Types</option>
+
+                    <option>MNC</option>
+
+                    <option>Startup</option>
+
+                    <option>Consultancy</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select id="status">
+
+                    <option value="">All Status</option>
+
+                    <option>ACTIVE</option>
+
+                    <option>INACTIVE</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- FILTER BUTTONS -->
+
+        <div class="button-group">
+
+            <button class="btn primary"
+            onclick="searchCompanies()">
+                Search
+            </button>
+
+            <button class="btn secondary"
+            onclick="resetFilters()">
+                Reset
+            </button>
+
+            <a href="company-form.html"
+            class="btn success">
+                + Add Company
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- COMPANY TABLE -->
+
+    <section class="table-section">
+
+        <div class="table-heading">
+
+            <h3>Company Records</h3>
+
+            <span id="recordCount">
+                Total Companies: 5
+            </span>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Company ID</th>
+
+                        <th>Company Name</th>
+
+                        <th>Industry</th>
+
+                        <th>Location</th>
+
+                        <th>HR Name</th>
+
+                        <th>HR Email</th>
+
+                        <th>Company Type</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="companyTable">
+
+
+                    <tr>
+
+                        <td>COM1001</td>
+
+                        <td>TCS</td>
+
+                        <td>IT</td>
+
+                        <td>Pune</td>
+
+                        <td>Rahul Sharma</td>
+
+                        <td>hr@tcs.com</td>
+
+                        <td>MNC</td>
+
+                        <td>
+                            <span class="badge active-status">
+                                ACTIVE
+                            </span>
+                        </td>
+
+                        <td>
+                            <a href="company-details.html"
+                            class="action-link">View</a>
+
+                            <a href="company-form.html"
+                            class="action-link">Edit</a>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>COM1002</td>
+
+                        <td>Infosys</td>
+
+                        <td>IT</td>
+
+                        <td>Bangalore</td>
+
+                        <td>Priya Singh</td>
+
+                        <td>hr@infosys.com</td>
+
+                        <td>MNC</td>
+
+                        <td>
+                            <span class="badge active-status">
+                                ACTIVE
+                            </span>
+                        </td>
+
+                        <td>
+                            <a href="company-details.html"
+                            class="action-link">View</a>
+
+                            <a href="company-form.html"
+                            class="action-link">Edit</a>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>COM1003</td>
+
+                        <td>Wipro</td>
+
+                        <td>IT</td>
+
+                        <td>Pune</td>
+
+                        <td>Amit Kumar</td>
+
+                        <td>hr@wipro.com</td>
+
+                        <td>MNC</td>
+
+                        <td>
+                            <span class="badge active-status">
+                                ACTIVE
+                            </span>
+                        </td>
+
+                        <td>
+                            <a href="company-details.html"
+                            class="action-link">View</a>
+
+                            <a href="company-form.html"
+                            class="action-link">Edit</a>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>COM1004</td>
+
+                        <td>TechStart</td>
+
+                        <td>Education</td>
+
+                        <td>Mumbai</td>
+
+                        <td>Neha Patil</td>
+
+                        <td>hr@techstart.com</td>
+
+                        <td>Startup</td>
+
+                        <td>
+                            <span class="badge active-status">
+                                ACTIVE
+                            </span>
+                        </td>
+
+                        <td>
+                            <a href="company-details.html"
+                            class="action-link">View</a>
+
+                            <a href="company-form.html"
+                            class="action-link">Edit</a>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>COM1005</td>
+
+                        <td>ABC Consultancy</td>
+
+                        <td>Consulting</td>
+
+                        <td>Delhi</td>
+
+                        <td>Rohit Verma</td>
+
+                        <td>hr@abc.com</td>
+
+                        <td>Consultancy</td>
+
+                        <td>
+                            <span class="badge inactive-status">
+                                INACTIVE
+                            </span>
+                        </td>
+
+                        <td>
+                            <a href="company-details.html"
+                            class="action-link">View</a>
+
+                            <a href="company-form.html"
+                            class="action-link">Edit</a>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- PAGINATION -->
+
+        <div class="pagination">
+
+            <button onclick="showPage(1)"
+            class="active">1</button>
+
+            <button onclick="showPage(2)">2</button>
+
+            <button onclick="showPage(3)">3</button>
+
+            <button onclick="showPage(3)">Next →</button>
+
+        </div>
+
+    </section>
+
+</main>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 Kiran Academy |
+    Recruitment & Placement Management System
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+// SEARCH COMPANIES
+
+function searchCompanies() {
+
+    let name = document.getElementById("companyName").value.toLowerCase();
+
+    let industry = document.getElementById("industry").value.toLowerCase();
+
+    let location = document.getElementById("location").value.toLowerCase();
+
+    let type = document.getElementById("companyType").value.toLowerCase();
+
+    let status = document.getElementById("status").value.toLowerCase();
+
+    let rows = document.querySelectorAll("#companyTable tr");
+
+    let count = 0;
+
+    rows.forEach(function(row) {
+
+        let data = row.innerText.toLowerCase();
+
+        let match =
+            data.includes(name) &&
+            data.includes(industry) &&
+            data.includes(location) &&
+            data.includes(type) &&
+            data.includes(status);
+
+        if(match) {
+
+            row.style.display = "";
+
+            count++;
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+    document.getElementById("recordCount").innerText =
+    "Total Companies: " + count;
+
+}
+
+
+// RESET FILTERS
+
+function resetFilters() {
+
+    document.getElementById("companyName").value = "";
+
+    document.getElementById("industry").value = "";
+
+    document.getElementById("location").value = "";
+
+    document.getElementById("companyType").value = "";
+
+    document.getElementById("status").value = "";
+
+    searchCompanies();
+
+}
+
+
+// PAGINATION DEMO
+
+function showPage(page) {
+
+    alert("Page " + page + " selected. Database pagination will be implemented later.");
+
+}
+
+</script>
+
+</body>
+
+</html>

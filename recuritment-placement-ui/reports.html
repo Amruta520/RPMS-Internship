@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RPMS - Reports Dashboard</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fa;
+    color: #333;
+}
+
+/* Header */
+
+header {
+    background: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px #ddd;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #174b7a;
+}
+
+.logo span {
+    color: #1688b5;
+}
+
+header p {
+    color: #174b7a;
+    font-weight: bold;
+}
+
+/* Main Container */
+
+.container {
+    width: 94%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+h2 {
+    color: #174b7a;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* Filter Section */
+
+.filter-box {
+    background: white;
+    padding: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 7px #ddd;
+    margin-bottom: 25px;
+}
+
+.filter-box h3 {
+    color: #174b7a;
+    margin-bottom: 18px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input, select {
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #174b7a;
+}
+
+/* Buttons */
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+button {
+    cursor: pointer;
+}
+
+.btn {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.apply {
+    background: #174b7a;
+    color: white;
+}
+
+.reset {
+    background: #e5e9ef;
+    color: #333;
+}
+
+.print {
+    background: #15965b;
+    color: white;
+}
+
+.export {
+    background: #1688b5;
+    color: white;
+}
+
+/* KPI Cards */
+
+.section-title {
+    color: #174b7a;
+    margin: 28px 0 18px;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.kpi-card {
+    background: white;
+    padding: 20px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 7px #ddd;
+    border-left: 4px solid #174b7a;
+}
+
+.kpi-card p {
+    color: #777;
+    font-size: 13px;
+}
+
+.kpi-card h2 {
+    font-size: 26px;
+    margin-top: 12px;
+}
+
+.kpi-card:nth-child(2) {
+    border-color: #1688b5;
+}
+
+.kpi-card:nth-child(3) {
+    border-color: #f0a52b;
+}
+
+.kpi-card:nth-child(4) {
+    border-color: #15965b;
+}
+
+.kpi-card:nth-child(5) {
+    border-color: #7655c5;
+}
+
+/* Dashboard Grid */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.panel {
+    background: white;
+    padding: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 7px #ddd;
+}
+
+.panel h3 {
+    color: #174b7a;
+    margin-bottom: 20px;
+}
+
+/* Funnel */
+
+.funnel-item {
+    margin-bottom: 18px;
+}
+
+.funnel-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.progress {
+    height: 12px;
+    background: #e8edf3;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 10px;
+    background: #174b7a;
+}
+
+/* Company / Technology Bars */
+
+.chart-item {
+    margin-bottom: 20px;
+}
+
+.chart-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.chart-bar {
+    height: 13px;
+    background: #e8edf3;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chart-fill {
+    height: 100%;
+    background: #1688b5;
+    border-radius: 10px;
+}
+
+/* Tables */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+}
+
+th {
+    background: #174b7a;
+    color: white;
+    padding: 13px;
+    text-align: left;
+    font-size: 13px;
+}
+
+td {
+    padding: 13px;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+}
+
+tr:hover {
+    background: #f1f5fa;
+}
+
+/* Status Badges */
+
+.badge {
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.open {
+    background: #d4edda;
+    color: #155724;
+}
+
+.urgent {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+    margin-top: 25px;
+}
+
+/* Responsive */
+
+@media(max-width: 900px) {
+
+    .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media(max-width: 650px) {
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media(max-width: 380px) {
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media print {
+
+    .filter-box,
+    .button-group,
+    footer {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .panel, .kpi-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        Kiran<span>Academy</span>
+    </div>
+
+    <p>Enquiry: 8888809416</p>
+
+</header>
+
+
+<div class="container">
+
+<h2>Recruitment & Placement Reports</h2>
+
+<p class="subtitle">
+Management Dashboard | Recruitment Performance Overview
+</p>
+
+
+<!-- FILTER SECTION -->
+
+<div class="filter-box">
+
+<h3>Report Filters</h3>
+
+<div class="filter-grid">
+
+    <div class="form-group">
+
+        <label>Date From</label>
+
+        <input type="date" id="dateFrom">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Date To</label>
+
+        <input type="date" id="dateTo">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Technology</label>
+
+        <select id="technology">
+
+            <option value="">All Technologies</option>
+            <option>Java</option>
+            <option>Python</option>
+            <option>Web Development</option>
+            <option>.NET</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Company</label>
+
+        <select id="company">
+
+            <option value="">All Companies</option>
+            <option>Infosys</option>
+            <option>TCS</option>
+            <option>Wipro</option>
+            <option>Accenture</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Recruiter</label>
+
+        <select id="recruiter">
+
+            <option value="">All Recruiters</option>
+            <option>Priya</option>
+            <option>Rahul</option>
+            <option>Amit</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Passing Year</label>
+
+        <select id="passingYear">
+
+            <option value="">All Years</option>
+            <option>2024</option>
+            <option>2025</option>
+            <option>2026</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div class="button-group">
+
+    <button class="btn apply" onclick="applyFilters()">
+        Apply Filters
+    </button>
+
+    <button class="btn reset" onclick="resetFilters()">
+        Reset
+    </button>
+
+    <button class="btn print" onclick="window.print()">
+        Print
+    </button>
+
+    <button class="btn export" onclick="exportCSV()">
+        Export CSV
+    </button>
+
+</div>
+
+</div>
+
+
+<!-- KPI CARDS -->
+
+<h3 class="section-title">Key Performance Indicators</h3>
+
+<div class="kpi-grid">
+
+    <div class="kpi-card">
+
+        <p>Total Applications</p>
+
+        <h2 id="applications">1,200</h2>
+
+    </div>
+
+
+    <div class="kpi-card">
+
+        <p>Interviews</p>
+
+        <h2 id="interviews">480</h2>
+
+    </div>
+
+
+    <div class="kpi-card">
+
+        <p>Selected</p>
+
+        <h2 id="selected">210</h2>
+
+    </div>
+
+
+    <div class="kpi-card">
+
+        <p>Joined</p>
+
+        <h2 id="joined">175</h2>
+
+    </div>
+
+
+    <div class="kpi-card">
+
+        <p>Placement %</p>
+
+        <h2 id="placement">83.3%</h2>
+
+    </div>
+
+</div>
+
+
+<!-- RECRUITMENT FUNNEL -->
+
+<div class="dashboard-grid">
+
+<div class="panel">
+
+<h3>Recruitment Funnel</h3>
+
+<div class="funnel-item">
+
+    <div class="funnel-info">
+        <span>Applications</span>
+        <strong>1200</strong>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" style="width:100%"></div>
+    </div>
+
+</div>
+
+
+<div class="funnel-item">
+
+    <div class="funnel-info">
+        <span>Shortlisted</span>
+        <strong>760</strong>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" style="width:63.3%"></div>
+    </div>
+
+</div>
+
+
+<div class="funnel-item">
+
+    <div class="funnel-info">
+        <span>Interviewed</span>
+        <strong>480</strong>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" style="width:40%"></div>
+    </div>
+
+</div>
+
+
+<div class="funnel-item">
+
+    <div class="funnel-info">
+        <span>Selected</span>
+        <strong>210</strong>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" style="width:17.5%"></div>
+    </div>
+
+</div>
+
+
+<div class="funnel-item">
+
+    <div class="funnel-info">
+        <span>Joined</span>
+        <strong>175</strong>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" style="width:14.6%"></div>
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- COMPANY WISE PLACEMENT -->
+
+<div class="panel">
+
+<h3>Company-wise Placement</h3>
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>Infosys</span>
+        <strong>45</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:90%"></div>
+    </div>
+
+</div>
+
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>TCS</span>
+        <strong>35</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:70%"></div>
+    </div>
+
+</div>
+
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>Wipro</span>
+        <strong>25</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:50%"></div>
+    </div>
+
+</div>
+
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>Accenture</span>
+        <strong>20</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:40%"></div>
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- TECHNOLOGY WISE PLACEMENT -->
+
+<div class="panel">
+
+<h3>Technology-wise Placement</h3>
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>Java</span>
+        <strong>60</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:100%"></div>
+    </div>
+
+</div>
+
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>Python</span>
+        <strong>45</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:75%"></div>
+    </div>
+
+</div>
+
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>Web Development</span>
+        <strong>40</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:66.6%"></div>
+    </div>
+
+</div>
+
+
+<div class="chart-item">
+
+    <div class="chart-label">
+        <span>.NET</span>
+        <strong>30</strong>
+    </div>
+
+    <div class="chart-bar">
+        <div class="chart-fill" style="width:50%"></div>
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- RECRUITER PERFORMANCE -->
+
+<div class="panel">
+
+<h3>Recruiter Performance</h3>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Recruiter</th>
+    <th>Applications</th>
+    <th>Selected</th>
+    <th>Joined</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+    <td>Priya</td>
+    <td>400</td>
+    <td>80</td>
+    <td>65</td>
+</tr>
+
+<tr>
+    <td>Rahul</td>
+    <td>450</td>
+    <td>75</td>
+    <td>60</td>
+</tr>
+
+<tr>
+    <td>Amit</td>
+    <td>350</td>
+    <td>55</td>
+    <td>50</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PENDING INTERVIEWS -->
+
+<h3 class="section-title">Pending Interviews</h3>
+
+<div class="panel">
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Candidate</th>
+    <th>Company</th>
+    <th>Technology</th>
+    <th>Interview Date</th>
+    <th>Status</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+    <td>Rahul Patil</td>
+    <td>Infosys</td>
+    <td>Java</td>
+    <td>03-Nov-2026</td>
+    <td><span class="badge pending">Pending</span></td>
+</tr>
+
+<tr>
+    <td>Priya Sharma</td>
+    <td>TCS</td>
+    <td>Python</td>
+    <td>04-Nov-2026</td>
+    <td><span class="badge pending">Scheduled</span></td>
+</tr>
+
+<tr>
+    <td>Amit Kumar</td>
+    <td>Wipro</td>
+    <td>.NET</td>
+    <td>05-Nov-2026</td>
+    <td><span class="badge pending">Pending</span></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- OPEN JOB AGING -->
+
+<h3 class="section-title">Open Job Aging</h3>
+
+<div class="panel">
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Job Code</th>
+    <th>Company</th>
+    <th>Job Title</th>
+    <th>Openings</th>
+    <th>Age (Days)</th>
+    <th>Status</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+    <td>JOB-001</td>
+    <td>Infosys</td>
+    <td>Java Developer</td>
+    <td>15</td>
+    <td>12</td>
+    <td><span class="badge open">Active</span></td>
+</tr>
+
+<tr>
+    <td>JOB-002</td>
+    <td>TCS</td>
+    <td>Python Developer</td>
+    <td>10</td>
+    <td>35</td>
+    <td><span class="badge pending">Open</span></td>
+</tr>
+
+<tr>
+    <td>JOB-003</td>
+    <td>Wipro</td>
+    <td>Web Developer</td>
+    <td>8</td>
+    <td>65</td>
+    <td><span class="badge urgent">Delayed</span></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Kiran Academy | Recruitment & Placement Management System
+
+</footer>
+
+
+<script>
+
+// Sample report data
+
+const reportData = {
+
+    applications: 1200,
+    interviews: 480,
+    selected: 210,
+    joined: 175
+
+};
+
+
+// Apply Filters
+
+function applyFilters() {
+
+    let from = document.getElementById("dateFrom").value;
+
+    let to = document.getElementById("dateTo").value;
+
+    let technology = document.getElementById("technology").value;
+
+    let company = document.getElementById("company").value;
+
+    let recruiter = document.getElementById("recruiter").value;
+
+    let year = document.getElementById("passingYear").value;
+
+    if (from && to && from > to) {
+
+        alert("Date From cannot be greater than Date To.");
+
+        return;
+
+    }
+
+    alert(
+        "Filters Applied Successfully!\n\n" +
+        "Technology: " + (technology || "All") +
+        "\nCompany: " + (company || "All") +
+        "\nRecruiter: " + (recruiter || "All") +
+        "\nPassing Year: " + (year || "All")
+    );
+
+}
+
+
+// Reset Filters
+
+function resetFilters() {
+
+    document.getElementById("dateFrom").value = "";
+
+    document.getElementById("dateTo").value = "";
+
+    document.getElementById("technology").value = "";
+
+    document.getElementById("company").value = "";
+
+    document.getElementById("recruiter").value = "";
+
+    document.getElementById("passingYear").value = "";
+
+    alert("All Filters Reset!");
+
+}
+
+
+// Export CSV
+
+function exportCSV() {
+
+    let csv =
+
+    "Recruitment Report\n" +
+
+    "Category,Count\n" +
+
+    "Applications,1200\n" +
+
+    "Shortlisted,760\n" +
+
+    "Interviews,480\n" +
+
+    "Selected,210\n" +
+
+    "Joined,175\n" +
+
+    "Placement Percentage,83.3%\n";
+
+    let blob = new Blob([csv], {
+        type: "text/csv"
+    });
+
+    let link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "RPMS_Report.csv";
+
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+
+    alert("Report Exported Successfully!");
+
+}
+
+</script>
+
+</body>
+
+</html>

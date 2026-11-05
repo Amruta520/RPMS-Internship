@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPMS - Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eaf2fa, #f7f9fc);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 440px;
+            padding: 32px;
+            background: white;
+            border: 1px solid #e2e8ef;
+            border-radius: 16px;
+            box-shadow: 0 14px 38px rgba(23,55,87,0.12);
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .brand-name {
+            color: #164f83;
+            font-family: Georgia, serif;
+            font-size: 29px;
+            font-weight: bold;
+        }
+
+        .brand-name span {
+            color: #d1842c;
+        }
+
+        .brand-tagline {
+            color: #687789;
+            font-size: 11px;
+        }
+
+        h1 {
+            color: #123f70;
+            text-align: center;
+            font-size: 23px;
+        }
+
+        .subtitle {
+            color: #687789;
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #34465a;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            min-height: 46px;
+            border: 1px solid #d7e0e9;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #1769aa;
+        }
+
+        .forgot-row {
+            text-align: right;
+            margin-bottom: 18px;
+        }
+
+        .forgot-row a {
+            color: #1769aa;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 11px;
+        }
+
+        button {
+            min-height: 45px;
+            border: none;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            flex: 1;
+            color: white;
+            background: #1769aa;
+        }
+
+        .login-btn:hover {
+            background: #123f70;
+        }
+
+        .reset-btn {
+            min-width: 100px;
+            color: #405166;
+            background: #eef2f6;
+            border: 1px solid #dce4ec;
+        }
+
+        .notice {
+            margin-top: 22px;
+            padding: 11px;
+            border-radius: 7px;
+            background: #fff8e9;
+            border: 1px solid #f0dfb9;
+            color: #77551b;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .message {
+            display: none;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .error {
+            display: block;
+            color: #9c2525;
+            background: #fff0f0;
+        }
+
+        .success {
+            display: block;
+            color: #17613a;
+            background: #edfaf2;
+        }
+
+        .demo {
+            margin-top: 16px;
+            color: #687789;
+            text-align: center;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 22px;
+            color: #8a96a3;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        @media(max-width: 480px) {
+            .login-card {
+                padding: 25px 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="login-card">
+
+        <header class="brand">
+            <div class="brand-name">
+                Kiran<span>Academy</span>
+            </div>
+            <div class="brand-tagline">
+                IT Training & Placement
+            </div>
+        </header>
+
+        <h1>Welcome Back</h1>
+
+        <p class="subtitle">
+            Recruitment & Placement Management System
+        </p>
+
+        <div id="message" class="message"></div>
+
+        <form id="loginForm">
+
+            <div class="field">
+                <label for="username">Username / Email</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your username or email"
+                    required>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required>
+            </div>
+
+            <div class="field">
+                <label for="role">Select Role</label>
+
+                <select id="role" required>
+                    <option value="">Choose your role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Recruiter">Recruiter</option>
+                    <option value="Placement Officer">
+                        Placement Officer
+                    </option>
+                </select>
+            </div>
+
+            <div class="forgot-row">
+                <a href="#" id="forgotLink">
+                    Forgot Password?
+                </a>
+            </div>
+
+            <div class="buttons">
+
+                <button type="submit" class="login-btn">
+                    Login
+                </button>
+
+                <button type="reset" class="reset-btn">
+                    Reset
+                </button>
+
+            </div>
+
+        </form>
+
+        <div class="notice">
+            🔒 Authorized users only
+        </div>
+
+        <div class="demo">
+            Sample username: <b>recruiter@demo.com</b>
+            <br>
+            Sample role: <b>Recruiter</b>
+            <br>
+            Prototype: Enter any password to continue.
+        </div>
+
+        <footer>
+            © 2026 Kiran Academy | RPMS Prototype
+        </footer>
+
+    </main>
+
+    <script>
+
+        const form = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const username =
+                document.getElementById("username").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            const role =
+                document.getElementById("role").value;
+
+            if (!username || !password || !role) {
+
+                showMessage(
+                    "Please fill in all required fields.",
+                    "error"
+                );
+
+                return;
+            }
+
+            // Store user details for prototype navigation
+            sessionStorage.setItem("rpmsUsername", username);
+            sessionStorage.setItem("rpmsRole", role);
+
+            showMessage(
+                "Login successful. Opening dashboard...",
+                "success"
+            );
+
+            setTimeout(function() {
+                window.location.href = "dashboard.html";
+            }, 700);
+
+        });
+
+        form.addEventListener("reset", function() {
+
+            message.className = "message";
+            message.textContent = "";
+
+        });
+
+        document.getElementById("forgotLink")
+        .addEventListener("click", function(event) {
+
+            event.preventDefault();
+
+            showMessage(
+                "Password recovery is not connected in this prototype.",
+                "error"
+            );
+
+        });
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+            message.className = "message " + type;
+
+        }
+
+    </script>
+
+</body>
+</html>

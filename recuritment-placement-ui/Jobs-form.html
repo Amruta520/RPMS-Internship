@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create/Edit Job - RPMS</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f5f9;
+    color: #333;
+}
+
+/* Header */
+
+header {
+    background: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px #ddd;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    color: #174b7a;
+}
+
+.logo span {
+    color: #1688b5;
+}
+
+header p {
+    color: #174b7a;
+    font-weight: bold;
+}
+
+/* Main Container */
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+h2 {
+    color: #174b7a;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+/* Form Section */
+
+.form-section {
+    background: white;
+    padding: 25px;
+    margin-bottom: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+.form-section h3 {
+    color: #174b7a;
+    border-bottom: 2px solid #e5eaf0;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+/* Grid */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.required {
+    color: red;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #174b7a;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+/* Qualification */
+
+.qualification {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.qualification label {
+    font-weight: normal;
+}
+
+.qualification input {
+    width: auto;
+    margin-right: 5px;
+}
+
+/* Buttons */
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.save-btn {
+    background: #174b7a;
+    color: white;
+}
+
+.update-btn {
+    background: #15965b;
+    color: white;
+}
+
+.cancel-btn {
+    background: #ddd;
+    color: #333;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+/* Responsive Design */
+
+@media(max-width: 650px) {
+
+    .container {
+        width: 94%;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .qualification {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .button-group {
+        flex-wrap: wrap;
+    }
+
+    button {
+        flex: 1;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header>
+
+    <div class="logo">
+        Kiran<span>Academy</span>
+    </div>
+
+    <p>Enquiry: 8888809416</p>
+
+</header>
+
+
+<div class="container">
+
+<h2>Create / Edit Job</h2>
+
+<p class="subtitle">
+Enter complete job requirements and candidate eligibility criteria.
+</p>
+
+
+<form id="jobForm">
+
+<!-- 1. Basic Information -->
+
+<div class="form-section">
+
+<h3>1. Basic Information</h3>
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label>Company <span class="required">*</span></label>
+
+        <select id="company" required>
+            <option value="">Select Company</option>
+            <option>Infosys</option>
+            <option>TCS</option>
+            <option>Wipro</option>
+            <option>Accenture</option>
+            <option>Capgemini</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Job Code <span class="required">*</span></label>
+
+        <input type="text" id="jobCode"
+        placeholder="JOB-2026-001" required>
+    </div>
+
+
+    <div class="form-group">
+        <label>Job Title <span class="required">*</span></label>
+
+        <input type="text" id="jobTitle"
+        placeholder="Associate Java Developer" required>
+    </div>
+
+
+    <div class="form-group">
+        <label>Number of Openings <span class="required">*</span></label>
+
+        <input type="number" id="openings"
+        min="1" placeholder="15" required>
+    </div>
+
+
+    <div class="form-group">
+        <label>Employment Type <span class="required">*</span></label>
+
+        <select id="employment" required>
+            <option value="">Select Type</option>
+            <option>Full-time</option>
+            <option>Internship</option>
+            <option>Contract</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Location <span class="required">*</span></label>
+
+        <input type="text" id="location"
+        placeholder="Pune" required>
+    </div>
+
+</div>
+</div>
+
+
+<!-- 2. Compensation -->
+
+<div class="form-section">
+
+<h3>2. Compensation</h3>
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label>Minimum Package (LPA)</label>
+
+        <input type="number" id="minPackage"
+        step="0.1" min="0" placeholder="3.5">
+    </div>
+
+
+    <div class="form-group">
+        <label>Maximum Package (LPA)</label>
+
+        <input type="number" id="maxPackage"
+        step="0.1" min="0" placeholder="6.0">
+    </div>
+
+</div>
+</div>
+
+
+<!-- 3. Eligibility Criteria -->
+
+<div class="form-section">
+
+<h3>3. Eligibility Criteria</h3>
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Qualification <span class="required">*</span></label>
+
+        <div class="qualification">
+
+            <label>
+                <input type="checkbox" name="qualification" value="BCA">
+                BCA
+            </label>
+
+            <label>
+                <input type="checkbox" name="qualification" value="BSc">
+                B.Sc
+            </label>
+
+            <label>
+                <input type="checkbox" name="qualification" value="BE">
+                B.E
+            </label>
+
+            <label>
+                <input type="checkbox" name="qualification" value="BTech">
+                B.Tech
+            </label>
+
+            <label>
+                <input type="checkbox" name="qualification" value="MCA">
+                MCA
+            </label>
+
+            <label>
+                <input type="checkbox" name="qualification" value="MSc">
+                M.Sc
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-group">
+        <label>Minimum Percentage <span class="required">*</span></label>
+
+        <input type="number" id="percentage"
+        min="0" max="100" step="0.1"
+        placeholder="60" required>
+    </div>
+
+
+    <div class="form-group">
+        <label>Minimum Passing Year</label>
+
+        <input type="number" id="minYear"
+        placeholder="2024">
+    </div>
+
+
+    <div class="form-group">
+        <label>Maximum Passing Year</label>
+
+        <input type="number" id="maxYear"
+        placeholder="2026">
+    </div>
+
+
+    <div class="form-group">
+        <label>Maximum Backlogs <span class="required">*</span></label>
+
+        <input type="number" id="backlogs"
+        min="0" placeholder="0" required>
+    </div>
+
+
+    <div class="form-group">
+        <label>Experience Required (Years)</label>
+
+        <input type="number" id="experience"
+        min="0" placeholder="0">
+    </div>
+
+</div>
+</div>
+
+
+<!-- 4. Skills -->
+
+<div class="form-section">
+
+<h3>4. Skills</h3>
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Required Technology <span class="required">*</span></label>
+
+        <select id="technology" required>
+
+            <option value="">Select Technology</option>
+            <option>Java</option>
+            <option>Python</option>
+            <option>.NET</option>
+            <option>SQL</option>
+            <option>HTML/CSS</option>
+            <option>JavaScript</option>
+            <option>PHP</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Required Skills <span class="required">*</span></label>
+
+        <textarea id="skills"
+        placeholder="Java, SQL, HTML, Communication Skills"
+        required></textarea>
+
+    </div>
+
+</div>
+</div>
+
+
+<!-- 5. Important Dates -->
+
+<div class="form-section">
+
+<h3>5. Important Dates</h3>
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Posted Date <span class="required">*</span></label>
+
+        <input type="date" id="postedDate" required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Application Deadline <span class="required">*</span></label>
+
+        <input type="date" id="deadline" required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Status <span class="required">*</span></label>
+
+        <select id="status" required>
+
+            <option value="">Select Status</option>
+            <option>DRAFT</option>
+            <option>OPEN</option>
+            <option>CLOSED</option>
+
+        </select>
+
+    </div>
+
+</div>
+</div>
+
+
+<!-- Buttons -->
+
+<div class="button-group">
+
+    <button type="submit" class="save-btn">
+        Save Job
+    </button>
+
+    <button type="button" class="update-btn"
+    onclick="updateJob()">
+        Update Job
+    </button>
+
+    <button type="button" class="cancel-btn"
+    onclick="cancelForm()">
+        Cancel
+    </button>
+
+</div>
+
+</form>
+
+</div>
+
+
+<footer>
+Kiran Academy | Recruitment & Placement Management System
+</footer>
+
+
+<script>
+
+// Get Form
+const form = document.getElementById("jobForm");
+
+
+// Get Selected Qualifications
+function getQualifications() {
+
+    let selected = [];
+
+    document.querySelectorAll(
+        'input[name="qualification"]:checked'
+    ).forEach(item => {
+
+        selected.push(item.value);
+
+    });
+
+    return selected;
+}
+
+
+// Get Form Data
+function getJobData() {
+
+    return {
+
+        company: company.value,
+        jobCode: jobCode.value,
+        jobTitle: jobTitle.value,
+        openings: openings.value,
+        employment: employment.value,
+        location: location.value,
+
+        minPackage: minPackage.value,
+        maxPackage: maxPackage.value,
+
+        qualification: getQualifications(),
+        percentage: percentage.value,
+        minYear: minYear.value,
+        maxYear: maxYear.value,
+        backlogs: backlogs.value,
+        experience: experience.value,
+
+        technology: technology.value,
+        skills: skills.value,
+
+        postedDate: postedDate.value,
+        deadline: deadline.value,
+        status: status.value
+
+    };
+
+}
+
+
+// Get Saved Jobs
+function getSavedJobs() {
+
+    return JSON.parse(localStorage.getItem("rpmsJobs")) || [];
+
+}
+
+
+// Validate Additional Conditions
+function validateJob(job) {
+
+    if (job.qualification.length === 0) {
+
+        alert("Please select at least one qualification.");
+        return false;
+
+    }
+
+    if (job.minPackage && job.maxPackage &&
+        Number(job.minPackage) > Number(job.maxPackage)) {
+
+        alert("Maximum package must be greater than minimum package.");
+        return false;
+
+    }
+
+    if (job.minYear && job.maxYear &&
+        Number(job.minYear) > Number(job.maxYear)) {
+
+        alert("Maximum passing year must be greater than minimum passing year.");
+        return false;
+
+    }
+
+    if (job.deadline < job.postedDate) {
+
+        alert("Application deadline cannot be before posted date.");
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+// Save Job
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let job = getJobData();
+
+    if (!validateJob(job)) {
+        return;
+    }
+
+    let jobs = getSavedJobs();
+
+    let exists = jobs.some(
+        item => item.jobCode === job.jobCode
+    );
+
+    if (exists) {
+
+        alert("Job Code already exists!");
+        return;
+
+    }
+
+    jobs.push(job);
+
+    localStorage.setItem(
+        "rpmsJobs",
+        JSON.stringify(jobs)
+    );
+
+    alert("Job Saved Successfully!");
+
+    form.reset();
+
+});
+
+
+// Update Existing Job
+function updateJob() {
+
+    let job = getJobData();
+
+    if (!form.reportValidity()) {
+        return;
+    }
+
+    if (!validateJob(job)) {
+        return;
+    }
+
+    let jobs = getSavedJobs();
+
+    let index = jobs.findIndex(
+        item => item.jobCode === job.jobCode
+    );
+
+    if (index === -1) {
+
+        alert("Job Code not found! Save the job first.");
+        return;
+
+    }
+
+    jobs[index] = job;
+
+    localStorage.setItem(
+        "rpmsJobs",
+        JSON.stringify(jobs)
+    );
+
+    alert("Job Updated Successfully!");
+
+}
+
+
+// Cancel Form
+function cancelForm() {
+
+    window.location.href = "jobs.html";
+
+}
+
+</script>
+
+</body>
+</html>

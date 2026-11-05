@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RPMS - Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f6fa;
+            color: #333;
+        }
+
+        /* Header */
+
+        .header {
+            background: #123f70;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f0a33c;
+        }
+
+        .user-info {
+            font-size: 13px;
+        }
+
+        /* Main Layout */
+
+        .container {
+            display: flex;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            width: 230px;
+            background: #173b61;
+            padding: 20px 10px;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #dce8f5;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 5px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #2876b8;
+            color: white;
+        }
+
+        .logout {
+            margin-top: 25px;
+            border-top: 1px solid #54708c;
+            padding-top: 15px;
+        }
+
+        /* Content Area */
+
+        .main-content {
+            flex: 1;
+            padding: 25px;
+            min-width: 0;
+        }
+
+        .page-title {
+            color: #123f70;
+            margin-bottom: 8px;
+            font-size: 26px;
+        }
+
+        .welcome {
+            color: #718096;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* Summary Cards */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid #1769aa;
+        }
+
+        .card h4 {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .card h2 {
+            color: #123f70;
+            font-size: 27px;
+        }
+
+        .card p {
+            color: #15945a;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        /* Sections */
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section h3 {
+            color: #123f70;
+            margin-bottom: 18px;
+            font-size: 18px;
+        }
+
+        /* Recruitment Funnel */
+
+        .funnel {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .funnel-box {
+            flex: 1;
+            min-width: 100px;
+            background: #eaf3fb;
+            padding: 18px 10px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .funnel-box h2 {
+            color: #1769aa;
+            margin-bottom: 7px;
+        }
+
+        .funnel-box p {
+            font-size: 12px;
+            color: #526579;
+        }
+
+        /* Tables */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        th {
+            background: #123f70;
+            color: white;
+            padding: 13px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e5eaf0;
+            font-size: 13px;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f5f8fc;
+        }
+
+        /* Status Badges */
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .scheduled {
+            background: #e3f0ff;
+            color: #1769aa;
+        }
+
+        .open {
+            background: #e1f7e9;
+            color: #168344;
+        }
+
+        .selected {
+            background: #e4f7e9;
+            color: #168344;
+        }
+
+        /* Quick Actions */
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: #1769aa;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: #123f70;
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: #8793a0;
+            font-size: 12px;
+        }
+
+        /* Responsive Design */
+
+        @media(max-width: 1000px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 650px) {
+
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .sidebar h3 {
+                display: none;
+            }
+
+            .sidebar a {
+                display: inline-block;
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .logout {
+                margin-top: 5px;
+                padding-top: 5px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .card {
+                padding: 14px;
+            }
+
+            .card h2 {
+                font-size: 22px;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+        }
+
+        @media(max-width: 350px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <div class="logo">
+            Kiran<span>Academy</span>
+        </div>
+
+        <div class="user-info">
+            Welcome, <span id="userName">Recruiter</span>
+            | <span id="userRole">Recruiter</span>
+        </div>
+
+    </header>
+
+
+    <div class="container">
+
+        <!-- Sidebar Navigation -->
+
+        <aside class="sidebar">
+
+            <h3>RPMS MENU</h3>
+
+            <a href="dashboard.html" class="active">
+                🏠 Dashboard
+            </a>
+
+            <a href="candidates.html">
+                👥 Candidates
+            </a>
+
+            <a href="companies.html">
+                🏢 Companies
+            </a>
+
+            <a href="jobs.html">
+                💼 Jobs
+            </a>
+
+            <a href="applications.html">
+                📄 Applications
+            </a>
+
+            <a href="interviews.html">
+                📅 Interviews
+            </a>
+
+            <a href="placement-process.html">
+                🎓 Placement Process
+            </a>
+
+            <a href="reports.html">
+                📊 Reports
+            </a>
+
+            <div class="logout">
+
+                <a href="login.html">
+                    🚪 Logout
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Dashboard Content -->
+
+        <main class="main-content">
+
+            <h1 class="page-title">
+                Dashboard
+            </h1>
+
+            <p class="welcome">
+                Recruitment & Placement Management System Overview
+            </p>
+
+
+            <!-- Summary Cards -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <h4>Total Candidates</h4>
+
+                    <h2>2,450</h2>
+
+                    <p>Registered Candidates</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h4>Active Candidates</h4>
+
+                    <h2>1,850</h2>
+
+                    <p>Currently Active</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h4>Companies</h4>
+
+                    <h2>125</h2>
+
+                    <p>Registered Companies</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h4>Open Jobs</h4>
+
+                    <h2>28</h2>
+
+                    <p>Available Openings</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h4>Applications</h4>
+
+                    <h2>1,240</h2>
+
+                    <p>Total Applications</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h4>Interviews</h4>
+
+                    <h2>14</h2>
+
+                    <p>Scheduled Today</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h4>Selected</h4>
+
+                    <h2>720</h2>
+
+                    <p>Selected Candidates</p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h4>Placed</h4>
+
+                    <h2>685</h2>
+
+                    <p>Successfully Placed</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Recruitment Funnel -->
+
+            <section class="section">
+
+                <h3>Recruitment Funnel</h3>
+
+                <div class="funnel">
+
+                    <div class="funnel-box">
+
+                        <h2>2450</h2>
+
+                        <p>Candidates</p>
+
+                    </div>
+
+
+                    <div class="funnel-box">
+
+                        <h2>1240</h2>
+
+                        <p>Applications</p>
+
+                    </div>
+
+
+                    <div class="funnel-box">
+
+                        <h2>850</h2>
+
+                        <p>Shortlisted</p>
+
+                    </div>
+
+
+                    <div class="funnel-box">
+
+                        <h2>720</h2>
+
+                        <p>Selected</p>
+
+                    </div>
+
+
+                    <div class="funnel-box">
+
+                        <h2>685</h2>
+
+                        <p>Placed</p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Upcoming Interviews -->
+
+            <section class="section">
+
+                <h3>Upcoming Interviews</h3>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Company</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Rahul Sharma</td>
+                                <td>Infosys</td>
+                                <td>02-11-2026</td>
+                                <td>10:00 AM</td>
+                                <td>
+                                    <span class="status scheduled">
+                                        Scheduled
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Priya Patil</td>
+                                <td>TCS</td>
+                                <td>03-11-2026</td>
+                                <td>11:30 AM</td>
+                                <td>
+                                    <span class="status scheduled">
+                                        Scheduled
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Amit Kumar</td>
+                                <td>Wipro</td>
+                                <td>04-11-2026</td>
+                                <td>02:00 PM</td>
+                                <td>
+                                    <span class="status scheduled">
+                                        Scheduled
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- Recent Job Openings -->
+
+            <section class="section">
+
+                <h3>Recent Job Openings</h3>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Vacancies</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Java Developer</td>
+                                <td>Infosys</td>
+                                <td>10</td>
+                                <td>
+                                    <span class="status open">
+                                        OPEN
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Python Developer</td>
+                                <td>TCS</td>
+                                <td>8</td>
+                                <td>
+                                    <span class="status open">
+                                        OPEN
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Web Developer</td>
+                                <td>Wipro</td>
+                                <td>5</td>
+                                <td>
+                                    <span class="status open">
+                                        OPEN
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- Recent Placements -->
+
+            <section class="section">
+
+                <h3>Recent Placements</h3>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Company</th>
+                                <th>Job Role</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Neha Sharma</td>
+                                <td>Infosys</td>
+                                <td>Java Developer</td>
+                                <td>
+                                    <span class="status selected">
+                                        PLACED
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Rohit Patil</td>
+                                <td>TCS</td>
+                                <td>Software Engineer</td>
+                                <td>
+                                    <span class="status selected">
+                                        PLACED
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- Quick Actions -->
+
+            <section class="section">
+
+                <h3>Quick Actions</h3>
+
+                <div class="actions">
+
+                    <a href="candidates.html"
+                       class="action-btn">
+                        View Candidates
+                    </a>
+
+                    <a href="jobs.html"
+                       class="action-btn">
+                        View Open Jobs
+                    </a>
+
+                    <a href="interviews.html"
+                       class="action-btn">
+                        View Interviews
+                    </a>
+
+                    <a href="reports.html"
+                       class="action-btn">
+                        View Reports
+                    </a>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        © 2026 Kiran Academy |
+        Recruitment & Placement Management System
+
+    </footer>
+
+
+    <script>
+
+        // Get logged-in user details
+
+        const username =
+            sessionStorage.getItem("rpmsUsername");
+
+        const role =
+            sessionStorage.getItem("rpmsRole");
+
+
+        // Display user information
+
+        if (username) {
+
+            document.getElementById("userName")
+            .textContent = username;
+
+        }
+
+        if (role) {
+
+            document.getElementById("userRole")
+            .textContent = role;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

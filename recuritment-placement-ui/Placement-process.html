@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Selection & Placement - RPMS</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fa;
+    color: #333;
+}
+
+/* Header */
+
+header {
+    background: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px #ddd;
+}
+
+.logo {
+    color: #174b7a;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #1688b5;
+}
+
+header p {
+    color: #174b7a;
+    font-weight: bold;
+}
+
+/* Container */
+
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+h2 {
+    color: #174b7a;
+    margin-bottom: 20px;
+}
+
+/* Candidate Summary */
+
+.summary {
+    background: white;
+    padding: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+    margin-bottom: 25px;
+}
+
+.summary h3 {
+    color: #174b7a;
+    margin-bottom: 15px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.summary-item {
+    background: #f1f5fa;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.summary-item label {
+    color: #777;
+    font-size: 12px;
+}
+
+.summary-item p {
+    font-weight: bold;
+    margin-top: 8px;
+    color: #174b7a;
+}
+
+/* Tabs */
+
+.tabs {
+    display: flex;
+    background: white;
+    border-radius: 7px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 15px 8px;
+    border: none;
+    background: white;
+    color: #174b7a;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active {
+    background: #174b7a;
+    color: white;
+    border-bottom: 3px solid #1688b5;
+}
+
+/* Tab Content */
+
+.tab-content {
+    display: none;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content h3 {
+    color: #174b7a;
+    margin-bottom: 20px;
+}
+
+/* Form */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.required {
+    color: red;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #174b7a;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Buttons */
+
+.button-group {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.action-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.save-btn {
+    background: #174b7a;
+    color: white;
+}
+
+.offer-btn {
+    background: #15965b;
+    color: white;
+}
+
+.update-btn {
+    background: #1688b5;
+    color: white;
+}
+
+.join-btn {
+    background: #198754;
+    color: white;
+}
+
+.placed-btn {
+    background: #6f42c1;
+    color: white;
+}
+
+/* Status */
+
+.badge {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.SELECTED, .ACCEPTED, .JOINED {
+    background: #d4edda;
+    color: #155724;
+}
+
+.REJECTED, .NOT-JOINED, .EXPIRED {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.NEXT-ROUND, .OFFERED {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.ON-HOLD, .DEFERRED, .WITHDRAWN {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* Rating */
+
+.rating-note {
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+
+/* Responsive */
+
+@media(max-width: 700px) {
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
+@media(max-width: 450px) {
+
+    .container {
+        width: 94%;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-content {
+        padding: 18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- Header -->
+
+<header>
+
+    <div class="logo">
+        Kiran<span>Academy</span>
+    </div>
+
+    <p>Enquiry: 8888809416</p>
+
+</header>
+
+
+<div class="container">
+
+<h2>Selection, Offer & Placement Process</h2>
+
+
+<!-- Candidate Summary -->
+
+<div class="summary">
+
+<h3>Candidate & Job Summary</h3>
+
+<div class="summary-grid">
+
+    <div class="summary-item">
+        <label>Candidate Name</label>
+        <p>Rahul Patil</p>
+    </div>
+
+    <div class="summary-item">
+        <label>Interview Result</label>
+        <p id="summaryResult">SELECTED</p>
+    </div>
+
+    <div class="summary-item">
+        <label>Designation</label>
+        <p id="summaryDesignation">Java Developer</p>
+    </div>
+
+    <div class="summary-item">
+        <label>Offered Package</label>
+        <p id="summaryPackage">5.2 LPA</p>
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- Tabs -->
+
+<div class="tabs">
+
+    <button class="tab-btn active"
+    onclick="openTab('feedback', this)">
+        1. Interview Feedback
+    </button>
+
+    <button class="tab-btn"
+    onclick="openTab('offer', this)">
+        2. Offer Details
+    </button>
+
+    <button class="tab-btn"
+    onclick="openTab('joining', this)">
+        3. Joining / Placement
+    </button>
+
+</div>
+
+
+<!-- TAB 1: INTERVIEW FEEDBACK -->
+
+<div class="tab-content active" id="feedback">
+
+<h3>Interview Feedback</h3>
+
+<form id="feedbackForm">
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Technical Rating</label>
+
+        <select id="technical">
+            <option value="">Select Rating</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Average</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Communication Rating</label>
+
+        <select id="communication">
+            <option value="">Select Rating</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Average</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Problem Solving Rating</label>
+
+        <select id="problem">
+            <option value="">Select Rating</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Average</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Overall Rating</label>
+
+        <input type="number" id="overall"
+        min="1" max="5" step="0.1"
+        placeholder="Calculated automatically"
+        readonly>
+
+        <p class="rating-note">
+            Average of the three ratings.
+        </p>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Interview Result <span class="required">*</span></label>
+
+        <select id="result" required>
+
+            <option value="">Select Result</option>
+            <option>NEXT_ROUND</option>
+            <option>SELECTED</option>
+            <option>REJECTED</option>
+            <option>ON_HOLD</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Feedback Remarks</label>
+
+        <textarea id="remarks"
+        placeholder="Enter interview feedback"></textarea>
+
+    </div>
+
+</div>
+
+
+<div class="button-group">
+
+    <button type="submit" class="action-btn save-btn">
+        Save Feedback
+    </button>
+
+</div>
+
+</form>
+
+</div>
+
+
+<!-- TAB 2: OFFER DETAILS -->
+
+<div class="tab-content" id="offer">
+
+<h3>Offer Details</h3>
+
+<form id="offerForm">
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Designation</label>
+
+        <input type="text" id="designation"
+        placeholder="Java Developer">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Offered Package (LPA)</label>
+
+        <input type="number" id="package"
+        step="0.1" min="0"
+        placeholder="5.2">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Offer Date</label>
+
+        <input type="date" id="offerDate">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Expected Joining Date</label>
+
+        <input type="date" id="expectedDate">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Offer Status</label>
+
+        <select id="offerStatus">
+
+            <option value="">Select Status</option>
+            <option>OFFERED</option>
+            <option>ACCEPTED</option>
+            <option>REJECTED</option>
+            <option>EXPIRED</option>
+            <option>WITHDRAWN</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div class="button-group">
+
+    <button type="button"
+    class="action-btn offer-btn"
+    onclick="createOffer()">
+
+        Create Offer
+
+    </button>
+
+
+    <button type="button"
+    class="action-btn update-btn"
+    onclick="updateOffer()">
+
+        Update Offer Status
+
+    </button>
+
+</div>
+
+</form>
+
+</div>
+
+
+<!-- TAB 3: JOINING / PLACEMENT -->
+
+<div class="tab-content" id="joining">
+
+<h3>Joining / Placement Details</h3>
+
+<form id="joiningForm">
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Actual Joining Date</label>
+
+        <input type="date" id="actualDate">
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Joining Status</label>
+
+        <select id="joiningStatus">
+
+            <option value="">Select Status</option>
+            <option>JOINED</option>
+            <option>NOT_JOINED</option>
+            <option>DEFERRED</option>
+            <option>NO_SHOW</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<div class="button-group">
+
+    <button type="button"
+    class="action-btn join-btn"
+    onclick="confirmJoining()">
+
+        Confirm Joining
+
+    </button>
+
+
+    <button type="button"
+    class="action-btn placed-btn"
+    onclick="markPlaced()">
+
+        Mark Placed
+
+    </button>
+
+</div>
+
+</form>
+
+
+<!-- Placement Status -->
+
+<div class="summary" style="margin-top:25px;">
+
+    <h3>Current Placement Status</h3>
+
+    <p>
+        Status:
+        <span class="badge ON-HOLD" id="placementBadge">
+            PENDING
+        </span>
+    </p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+Kiran Academy | Recruitment & Placement Management System
+
+</footer>
+
+
+<script>
+
+// Tab Navigation
+
+function openTab(tabName, button) {
+
+    let contents = document.querySelectorAll(".tab-content");
+
+    let buttons = document.querySelectorAll(".tab-btn");
+
+    contents.forEach(item => {
+        item.classList.remove("active");
+    });
+
+    buttons.forEach(item => {
+        item.classList.remove("active");
+    });
+
+    document.getElementById(tabName)
+    .classList.add("active");
+
+    button.classList.add("active");
+
+}
+
+
+// Get Elements
+
+const technical = document.getElementById("technical");
+
+const communication = document.getElementById("communication");
+
+const problem = document.getElementById("problem");
+
+const overall = document.getElementById("overall");
+
+
+// Calculate Overall Rating
+
+function calculateRating() {
+
+    let a = Number(technical.value);
+
+    let b = Number(communication.value);
+
+    let c = Number(problem.value);
+
+    if (technical.value && communication.value && problem.value) {
+
+        overall.value = ((a + b + c) / 3).toFixed(1);
+
+    } else {
+
+        overall.value = "";
+
+    }
+
+}
+
+technical.addEventListener("change", calculateRating);
+
+communication.addEventListener("change", calculateRating);
+
+problem.addEventListener("change", calculateRating);
+
+
+// Get Saved Data
+
+function getPlacementData() {
+
+    return JSON.parse(
+        localStorage.getItem("rpmsPlacement")
+    ) || {};
+
+}
+
+
+// Save Data
+
+function savePlacementData(data) {
+
+    localStorage.setItem(
+        "rpmsPlacement",
+        JSON.stringify(data)
+    );
+
+}
+
+
+// Display Summary
+
+function updateSummary(data) {
+
+    document.getElementById("summaryResult").innerText =
+        data.result || "PENDING";
+
+    document.getElementById("summaryDesignation").innerText =
+        data.designation || "Not Assigned";
+
+    document.getElementById("summaryPackage").innerText =
+        data.package ? data.package + " LPA" : "Not Offered";
+
+    let badge = document.getElementById("placementBadge");
+
+    badge.innerText = data.placementStatus || "PENDING";
+
+    badge.className = "badge " +
+        (data.placementStatus || "ON-HOLD");
+
+}
+
+
+// Save Feedback
+
+document.getElementById("feedbackForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let data = getPlacementData();
+
+    data.technical = technical.value;
+
+    data.communication = communication.value;
+
+    data.problem = problem.value;
+
+    data.overall = overall.value;
+
+    data.result = document.getElementById("result").value;
+
+    data.remarks = document.getElementById("remarks").value;
+
+    savePlacementData(data);
+
+    updateSummary(data);
+
+    alert("Interview Feedback Saved Successfully!");
+
+});
+
+
+// Create Offer
+
+function createOffer() {
+
+    let designation = document.getElementById("designation").value;
+
+    let packageValue = document.getElementById("package").value;
+
+    let offerDate = document.getElementById("offerDate").value;
+
+    let expectedDate = document.getElementById("expectedDate").value;
+
+    let status = document.getElementById("offerStatus").value;
+
+    if (!designation || !packageValue || !offerDate ||
+        !expectedDate || !status) {
+
+        alert("Please fill all offer details.");
+
+        return;
+
+    }
+
+    if (Number(packageValue) <= 0) {
+
+        alert("Package must be greater than zero.");
+
+        return;
+
+    }
+
+    if (expectedDate < offerDate) {
+
+        alert("Joining date cannot be before offer date.");
+
+        return;
+
+    }
+
+    let data = getPlacementData();
+
+    data.designation = designation;
+
+    data.package = packageValue;
+
+    data.offerDate = offerDate;
+
+    data.expectedDate = expectedDate;
+
+    data.offerStatus = status;
+
+    savePlacementData(data);
+
+    updateSummary(data);
+
+    alert("Offer Created Successfully!");
+
+}
+
+
+// Update Offer Status
+
+function updateOffer() {
+
+    let data = getPlacementData();
+
+    let status = document.getElementById("offerStatus").value;
+
+    if (!data.designation) {
+
+        alert("Please create an offer first.");
+
+        return;
+
+    }
+
+    if (!status) {
+
+        alert("Please select offer status.");
+
+        return;
+
+    }
+
+    data.offerStatus = status;
+
+    savePlacementData(data);
+
+    updateSummary(data);
+
+    alert("Offer Status Updated Successfully!");
+
+}
+
+
+// Confirm Joining
+
+function confirmJoining() {
+
+    let data = getPlacementData();
+
+    let date = document.getElementById("actualDate").value;
+
+    let status = document.getElementById("joiningStatus").value;
+
+    if (data.offerStatus !== "ACCEPTED") {
+
+        alert("Candidate must accept the offer first.");
+
+        return;
+
+    }
+
+    if (!date || !status) {
+
+        alert("Please enter joining details.");
+
+        return;
+
+    }
+
+    if (status !== "JOINED") {
+
+        alert("Select JOINED to confirm joining.");
+
+        return;
+
+    }
+
+    if (data.expectedDate && date < data.expectedDate) {
+
+        alert("Actual joining date is before expected joining date. Please verify.");
+
+        if (!confirm("Do you want to continue?")) {
+            return;
+        }
+
+    }
+
+    data.actualDate = date;
+
+    data.joiningStatus = status;
+
+    data.placementStatus = "JOINED";
+
+    savePlacementData(data);
+
+    updateSummary(data);
+
+    alert("Joining Confirmed Successfully!");
+
+}
+
+
+// Mark Placed
+
+function markPlaced() {
+
+    let data = getPlacementData();
+
+    if (data.joiningStatus !== "JOINED") {
+
+        alert("Candidate must join before marking as placed.");
+
+        return;
+
+    }
+
+    data.placementStatus = "PLACED";
+
+    savePlacementData(data);
+
+    updateSummary(data);
+
+    alert("Candidate Marked as Placed Successfully!");
+
+}
+
+
+// Load Previously Saved Data
+
+function loadData() {
+
+    let data = getPlacementData();
+
+    if (data.technical) technical.value = data.technical;
+
+    if (data.communication) communication.value = data.communication;
+
+    if (data.problem) problem.value = data.problem;
+
+    if (data.result) {
+        document.getElementById("result").value = data.result;
+    }
+
+    if (data.remarks) {
+        document.getElementById("remarks").value = data.remarks;
+    }
+
+    if (data.designation) {
+        document.getElementById("designation").value = data.designation;
+    }
+
+    if (data.package) {
+        document.getElementById("package").value = data.package;
+    }
+
+    if (data.offerDate) {
+        document.getElementById("offerDate").value = data.offerDate;
+    }
+
+    if (data.expectedDate) {
+        document.getElementById("expectedDate").value = data.expectedDate;
+    }
+
+    if (data.offerStatus) {
+        document.getElementById("offerStatus").value = data.offerStatus;
+    }
+
+    if (data.actualDate) {
+        document.getElementById("actualDate").value = data.actualDate;
+    }
+
+    if (data.joiningStatus) {
+        document.getElementById("joiningStatus").value = data.joiningStatus;
+    }
+
+    calculateRating();
+
+    updateSummary(data);
+
+}
+
+
+// Initial Load
+
+loadData();
+
+</script>
+
+</body>
+
+</html>

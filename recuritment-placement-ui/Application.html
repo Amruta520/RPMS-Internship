@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Applications - RPMS</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fa;
+    color: #333;
+}
+
+/* Header */
+
+header {
+    background: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px #ddd;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #174b7a;
+}
+
+.logo span {
+    color: #1688b5;
+}
+
+header p {
+    color: #174b7a;
+    font-weight: bold;
+}
+
+/* Container */
+
+.container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+h2 {
+    color: #174b7a;
+    margin-bottom: 20px;
+}
+
+/* Filter Section */
+
+.filter-box {
+    background: white;
+    padding: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+h3 {
+    color: #174b7a;
+    margin-bottom: 18px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus, select:focus {
+    border-color: #174b7a;
+}
+
+/* Buttons */
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 12px 5px 0 0;
+}
+
+.search-btn {
+    background: #174b7a;
+    color: white;
+}
+
+.reset-btn {
+    background: #ddd;
+    color: #333;
+}
+
+/* Summary Cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+    border-left: 5px solid #174b7a;
+}
+
+.card h4 {
+    color: #666;
+    font-size: 13px;
+}
+
+.card p {
+    font-size: 25px;
+    font-weight: bold;
+    color: #174b7a;
+    margin-top: 10px;
+}
+
+/* Table */
+
+.table-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1050px;
+}
+
+th {
+    background: #174b7a;
+    color: white;
+    padding: 13px;
+    text-align: left;
+}
+
+td {
+    padding: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f1f5fa;
+}
+
+/* Status Badges */
+
+.badge {
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.ELIGIBLE {
+    background: #d4edda;
+    color: #155724;
+}
+
+.INELIGIBLE {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.SHORTLISTED {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.APPLIED {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.INTERVIEW {
+    background: #e2d5f8;
+    color: #59319a;
+}
+
+.SELECTED {
+    background: #c3e6cb;
+    color: #155724;
+}
+
+.REJECTED {
+    background: #f5c6cb;
+    color: #721c24;
+}
+
+/* Action Buttons */
+
+.action-btn {
+    padding: 7px 10px;
+    font-size: 11px;
+    margin: 3px;
+}
+
+.check {
+    background: #174b7a;
+    color: white;
+}
+
+.shortlist {
+    background: #198754;
+    color: white;
+}
+
+.reject {
+    background: #dc3545;
+    color: white;
+}
+
+.interview {
+    background: #6f42c1;
+    color: white;
+}
+
+.history {
+    background: #6c757d;
+    color: white;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+
+/* Responsive */
+
+@media(max-width: 900px) {
+
+    .filter-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media(max-width: 500px) {
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header>
+
+    <div class="logo">
+        Kiran<span>Academy</span>
+    </div>
+
+    <p>Enquiry: 8888809416</p>
+
+</header>
+
+
+<div class="container">
+
+<h2>Applications Management</h2>
+
+
+<!-- Application Filters -->
+
+<div class="filter-box">
+
+<h3>Application Filters</h3>
+
+<div class="filter-grid">
+
+    <div>
+        <label>Application ID</label>
+        <input type="text" id="appId"
+        placeholder="Enter Application ID">
+    </div>
+
+    <div>
+        <label>Candidate</label>
+        <input type="text" id="candidate"
+        placeholder="Candidate Name">
+    </div>
+
+    <div>
+        <label>Company</label>
+        <select id="company">
+
+            <option value="">All Companies</option>
+            <option>Infosys</option>
+            <option>TCS</option>
+            <option>Wipro</option>
+            <option>Accenture</option>
+            <option>Capgemini</option>
+
+        </select>
+    </div>
+
+    <div>
+        <label>Job</label>
+        <select id="job">
+
+            <option value="">All Jobs</option>
+            <option>Associate Java Developer</option>
+            <option>Python Developer</option>
+            <option>.NET Developer</option>
+            <option>SQL Developer</option>
+
+        </select>
+    </div>
+
+    <div>
+        <label>Application Status</label>
+        <select id="status">
+
+            <option value="">All Status</option>
+            <option>APPLIED</option>
+            <option>ELIGIBLE</option>
+            <option>SHORTLISTED</option>
+            <option>INTERVIEW</option>
+            <option>SELECTED</option>
+            <option>REJECTED</option>
+
+        </select>
+    </div>
+
+    <div>
+        <label>Date From</label>
+        <input type="date" id="dateFrom">
+    </div>
+
+    <div>
+        <label>Date To</label>
+        <input type="date" id="dateTo">
+    </div>
+
+</div>
+
+<button class="search-btn" onclick="searchApplications()">
+    Search
+</button>
+
+<button class="reset-btn" onclick="resetFilters()">
+    Reset
+</button>
+
+</div>
+
+
+<!-- Pipeline Summary -->
+
+<div class="cards">
+
+    <div class="card">
+        <h4>Total Applications</h4>
+        <p id="total">0</p>
+    </div>
+
+    <div class="card">
+        <h4>Applied</h4>
+        <p id="applied">0</p>
+    </div>
+
+    <div class="card">
+        <h4>Eligible</h4>
+        <p id="eligible">0</p>
+    </div>
+
+    <div class="card">
+        <h4>Shortlisted</h4>
+        <p id="shortlisted">0</p>
+    </div>
+
+    <div class="card">
+        <h4>Rejected</h4>
+        <p id="rejected">0</p>
+    </div>
+
+</div>
+
+
+<!-- Applications Table -->
+
+<div class="table-box">
+
+<h3>Applications List</h3>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Application ID</th>
+    <th>Candidate</th>
+    <th>Company</th>
+    <th>Job</th>
+    <th>Applied Date</th>
+    <th>Eligibility</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="applicationTable">
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+</div>
+
+
+<footer>
+
+Kiran Academy | Recruitment & Placement Management System
+
+</footer>
+
+
+<script>
+
+// Sample Application Data
+
+let applications = [
+
+{
+    id: "APP1001",
+    candidate: "Rahul Patil",
+    company: "Infosys",
+    job: "Associate Java Developer",
+    date: "2026-10-20",
+    eligibility: "ELIGIBLE",
+    status: "SHORTLISTED"
+},
+
+{
+    id: "APP1002",
+    candidate: "Priya Sharma",
+    company: "TCS",
+    job: "Python Developer",
+    date: "2026-10-21",
+    eligibility: "ELIGIBLE",
+    status: "APPLIED"
+},
+
+{
+    id: "APP1003",
+    candidate: "Amit Kumar",
+    company: "Wipro",
+    job: ".NET Developer",
+    date: "2026-10-22",
+    eligibility: "INELIGIBLE",
+    status: "REJECTED"
+},
+
+{
+    id: "APP1004",
+    candidate: "Sneha Patil",
+    company: "Accenture",
+    job: "SQL Developer",
+    date: "2026-10-23",
+    eligibility: "ELIGIBLE",
+    status: "INTERVIEW"
+},
+
+{
+    id: "APP1005",
+    candidate: "Rohit Jadhav",
+    company: "Infosys",
+    job: "Associate Java Developer",
+    date: "2026-10-24",
+    eligibility: "ELIGIBLE",
+    status: "SELECTED"
+}
+
+];
+
+
+// Display Applications
+
+function displayApplications(data) {
+
+    let table = document.getElementById("applicationTable");
+
+    table.innerHTML = "";
+
+    data.forEach(app => {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${app.id}</td>
+
+            <td>
+                <a href="candidate-details.html?id=${encodeURIComponent(app.id)}">
+                    ${app.candidate}
+                </a>
+            </td>
+
+            <td>${app.company}</td>
+
+            <td>${app.job}</td>
+
+            <td>${app.date}</td>
+
+            <td>
+                <span class="badge ${app.eligibility}">
+                    ${app.eligibility}
+                </span>
+            </td>
+
+            <td>
+                <span class="badge ${app.status}">
+                    ${app.status}
+                </span>
+            </td>
+
+            <td>
+
+                <button class="action-btn check"
+                onclick="checkEligibility('${app.id}')">
+                    Check
+                </button>
+
+                <button class="action-btn shortlist"
+                onclick="shortlist('${app.id}')">
+                    Shortlist
+                </button>
+
+                <button class="action-btn reject"
+                onclick="rejectApplication('${app.id}')">
+                    Reject
+                </button>
+
+                <button class="action-btn interview"
+                onclick="scheduleInterview('${app.id}')">
+                    Interview
+                </button>
+
+                <button class="action-btn history"
+                onclick="viewHistory('${app.id}')">
+                    History
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+    if (data.length === 0) {
+
+        table.innerHTML = `
+        <tr>
+            <td colspan="8" style="text-align:center">
+                No applications found
+            </td>
+        </tr>`;
+
+    }
+
+    updateSummary(data);
+
+}
+
+
+// Update Summary Cards
+
+function updateSummary(data) {
+
+    document.getElementById("total").innerText =
+        data.length;
+
+    document.getElementById("applied").innerText =
+        data.filter(a => a.status === "APPLIED").length;
+
+    document.getElementById("eligible").innerText =
+        data.filter(a => a.eligibility === "ELIGIBLE").length;
+
+    document.getElementById("shortlisted").innerText =
+        data.filter(a => a.status === "SHORTLISTED").length;
+
+    document.getElementById("rejected").innerText =
+        data.filter(a => a.status === "REJECTED").length;
+
+}
+
+
+// Search Applications
+
+function searchApplications() {
+
+    let id = document.getElementById("appId").value.toLowerCase();
+
+    let candidate = document.getElementById("candidate").value.toLowerCase();
+
+    let company = document.getElementById("company").value;
+
+    let job = document.getElementById("job").value;
+
+    let status = document.getElementById("status").value;
+
+    let from = document.getElementById("dateFrom").value;
+
+    let to = document.getElementById("dateTo").value;
+
+    let result = applications.filter(app => {
+
+        return app.id.toLowerCase().includes(id) &&
+
+        app.candidate.toLowerCase().includes(candidate) &&
+
+        (!company || app.company === company) &&
+
+        (!job || app.job === job) &&
+
+        (!status || app.status === status) &&
+
+        (!from || app.date >= from) &&
+
+        (!to || app.date <= to);
+
+    });
+
+    displayApplications(result);
+
+}
+
+
+// Reset Filters
+
+function resetFilters() {
+
+    document.getElementById("appId").value = "";
+    document.getElementById("candidate").value = "";
+    document.getElementById("company").value = "";
+    document.getElementById("job").value = "";
+    document.getElementById("status").value = "";
+    document.getElementById("dateFrom").value = "";
+    document.getElementById("dateTo").value = "";
+
+    displayApplications(applications);
+
+}
+
+
+// Find Application
+
+function findApplication(id) {
+
+    return applications.find(app => app.id === id);
+
+}
+
+
+// Check Eligibility
+
+function checkEligibility(id) {
+
+    let app = findApplication(id);
+
+    if (!app) return;
+
+    if (app.eligibility === "ELIGIBLE") {
+
+        alert(app.candidate + " is eligible for this job.");
+
+    } else {
+
+        alert(app.candidate + " is not eligible for this job.");
+
+    }
+
+}
+
+
+// Shortlist Application
+
+function shortlist(id) {
+
+    let app = findApplication(id);
+
+    if (!app) return;
+
+    if (app.eligibility !== "ELIGIBLE") {
+
+        alert("Candidate is not eligible!");
+
+        return;
+
+    }
+
+    app.status = "SHORTLISTED";
+
+    displayApplications(applications);
+
+    alert("Candidate Shortlisted Successfully!");
+
+}
+
+
+// Reject Application
+
+function rejectApplication(id) {
+
+    let app = findApplication(id);
+
+    if (!app) return;
+
+    if (confirm("Are you sure you want to reject this application?")) {
+
+        app.status = "REJECTED";
+
+        displayApplications(applications);
+
+        alert("Application Rejected!");
+
+    }
+
+}
+
+
+// Schedule Interview
+
+function scheduleInterview(id) {
+
+    let app = findApplication(id);
+
+    if (!app) return;
+
+    if (app.status !== "SHORTLISTED") {
+
+        alert("Please shortlist the candidate first.");
+
+        return;
+
+    }
+
+    window.location.href =
+        "interviews.html?id=" + encodeURIComponent(id);
+
+}
+
+
+// View History
+
+function viewHistory(id) {
+
+    let app = findApplication(id);
+
+    if (!app) return;
+
+    alert(
+
+        "Application History\n\n" +
+
+        "Application ID: " + app.id + "\n" +
+
+        "Candidate: " + app.candidate + "\n" +
+
+        "Company: " + app.company + "\n" +
+
+        "Eligibility: " + app.eligibility + "\n" +
+
+        "Current Status: " + app.status
+
+    );
+
+}
+
+
+// Initial Display
+
+displayApplications(applications);
+
+</script>
+
+</body>
+</html>

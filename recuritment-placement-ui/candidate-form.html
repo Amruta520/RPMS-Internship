@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RPMS - Candidate Form</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f6fa;
+    color: #333;
+}
+
+.header {
+    background: #123f70;
+    color: white;
+    padding: 17px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: orange;
+}
+
+.container {
+    display: flex;
+    min-height: 90vh;
+}
+
+.sidebar {
+    width: 230px;
+    background: #173b61;
+    padding: 20px 10px;
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    color: white;
+    padding: 10px;
+}
+
+.sidebar a {
+    display: block;
+    color: #dce8f5;
+    text-decoration: none;
+    padding: 13px;
+    border-radius: 6px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2876b8;
+}
+
+.main-content {
+    flex: 1;
+    padding: 25px;
+    min-width: 0;
+}
+
+.page-title {
+    color: #123f70;
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #718096;
+    margin-bottom: 25px;
+}
+
+.form-container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-section h3 {
+    color: #123f70;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5eaf0;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.required {
+    color: red;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd5df;
+    border-radius: 5px;
+    background: white;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid #e5eaf0;
+    padding-top: 22px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.save {
+    background: #1769aa;
+    color: white;
+}
+
+.cancel {
+    background: #e5eaf0;
+    color: #333;
+}
+
+#message {
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 18px;
+    color: #8793a0;
+}
+
+@media(max-width:650px) {
+
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .sidebar a {
+        display: inline-block;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        Kiran<span>Academy</span>
+    </div>
+
+    <div>Welcome, Recruiter</div>
+
+</header>
+
+<div class="container">
+
+<aside class="sidebar">
+
+    <h3>RPMS MENU</h3>
+
+    <a href="Dashboard.html">🏠 Dashboard</a>
+    <a href="Candidates.html" class="active">👥 Candidates</a>
+    <a href="companies.html">🏢 Companies</a>
+    <a href="Jobs.html">💼 Jobs</a>
+    <a href="Application.html">📄 Applications</a>
+    <a href="Interviews.html">📅 Interviews</a>
+    <a href="Placement-process.html">🎓 Placement Process</a>
+    <a href="reports.html">📊 Reports</a>
+    <a href="Login.html">🚪 Logout</a>
+
+</aside>
+
+<main class="main-content">
+
+<h1 class="page-title">Candidate Add</h1>
+
+<p class="subtitle">
+Enter candidate personal, academic, skills and placement information.
+</p>
+
+<div class="form-container">
+
+<form id="candidateForm">
+
+<section class="form-section">
+
+<h3>1. Personal Information</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Full Name <span class="required">*</span></label>
+<input id="fullName" required maxlength="150">
+</div>
+
+<div class="form-group">
+<label>Email <span class="required">*</span></label>
+<input type="email" id="email" required maxlength="150">
+</div>
+
+<div class="form-group">
+<label>Mobile <span class="required">*</span></label>
+<input type="tel" id="mobile" required pattern="[0-9]{10}" maxlength="10">
+</div>
+
+<div class="form-group">
+<label>Date of Birth</label>
+<input type="date" id="dob">
+</div>
+
+<div class="form-group">
+<label>Gender</label>
+<select id="gender">
+<option value="">Select Gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+
+</div>
+</section>
+
+<section class="form-section">
+
+<h3>2. Academic Information</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Qualification *</label>
+<select id="qualification" required>
+<option value="">Select Qualification</option>
+<option>BE</option>
+<option>BTech</option>
+<option>MCA</option>
+<option>BSc</option>
+<option>BCA</option>
+<option>MBA</option>
+<option>BA</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>College</label>
+<input id="college">
+</div>
+
+<div class="form-group">
+<label>University</label>
+<input id="university">
+</div>
+
+<div class="form-group">
+<label>Passing Year *</label>
+<input type="number" id="passingYear"
+min="1990" max="2100" required>
+</div>
+
+<div class="form-group">
+<label>Percentage</label>
+<input type="number" id="percentage"
+min="0" max="100" step="0.01">
+</div>
+
+<div class="form-group">
+<label>Backlog Count</label>
+<input type="number" id="backlog" min="0" value="0">
+</div>
+
+</div>
+</section>
+
+<section class="form-section">
+
+<h3>3. Skills Information</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Primary Technology</label>
+<select id="technology">
+<option value="">Select Technology</option>
+<option>Java</option>
+<option>Python</option>
+<option>.NET</option>
+<option>Testing</option>
+<option>Web Development</option>
+<option>Data Analytics</option>
+<option>SQL</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Secondary Skills</label>
+<input id="secondarySkills">
+</div>
+
+<div class="form-group">
+<label>Skill Level</label>
+<select id="skillLevel">
+<option value="">Select Skill Level</option>
+<option>Basic</option>
+<option>Intermediate</option>
+<option>Advanced</option>
+</select>
+</div>
+
+</div>
+</section>
+
+<section class="form-section">
+
+<h3>4. Placement Preferences</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Current Location</label>
+<input id="currentLocation">
+</div>
+
+<div class="form-group">
+<label>Preferred Location</label>
+<input id="preferredLocation">
+</div>
+
+<div class="form-group">
+<label>Profile Status *</label>
+<select id="profileStatus" required>
+<option value="ACTIVE">ACTIVE</option>
+<option value="INACTIVE">INACTIVE</option>
+<option value="ON HOLD">ON HOLD</option>
+</select>
+</div>
+
+</div>
+</section>
+
+<div id="message"></div>
+
+<div class="button-group">
+
+<button type="submit" class="btn save" id="saveButton">
+Save Candidate
+</button>
+
+<a href="Candidates.html" class="btn cancel">
+Cancel
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</main>
+</div>
+
+<footer>
+© 2026 Kiran Academy | Recruitment & Placement Management System
+</footer>
+
+<script>
+
+const API_URL = "http://127.0.0.1:8080/api/candidates";
+
+document.getElementById("candidateForm")
+.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const form = this;
+    const message = document.getElementById("message");
+    const button = document.getElementById("saveButton");
+
+    const fields = [
+        "fullName",
+        "email",
+        "mobile",
+        "dob",
+        "gender",
+        "qualification",
+        "college",
+        "university",
+        "passingYear",
+        "percentage",
+        "backlog",
+        "technology",
+        "currentLocation",
+        "preferredLocation",
+        "profileStatus"
+    ];
+
+    const data = new URLSearchParams();
+
+    fields.forEach(id => {
+        data.append(id, document.getElementById(id).value);
+    });
+
+    button.disabled = true;
+    message.style.color = "blue";
+    message.textContent = "Saving candidate...";
+
+    try {
+
+        const response = await fetch(API_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                "application/x-www-form-urlencoded;charset=UTF-8"
+            },
+
+            body: data.toString()
+
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || "Could not save candidate");
+        }
+
+        message.style.color = "green";
+
+        message.textContent =
+            "Candidate saved successfully! Code: " +
+            result.candidate_code;
+
+        form.reset();
+
+    } catch (error) {
+
+        message.style.color = "red";
+
+        message.textContent =
+            "Save failed: " + error.message +
+            ". Check that the Java server is running.";
+
+    } finally {
+
+        button.disabled = false;
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

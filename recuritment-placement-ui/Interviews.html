@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Interviews - RPMS</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fa;
+    color: #333;
+}
+
+/* Header */
+
+header {
+    background: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px #ddd;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #174b7a;
+}
+
+.logo span {
+    color: #1688b5;
+}
+
+header p {
+    color: #174b7a;
+    font-weight: bold;
+}
+
+/* Container */
+
+.container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+h2 {
+    color: #174b7a;
+    margin-bottom: 20px;
+}
+
+/* Form Section */
+
+.form-box {
+    background: white;
+    padding: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+h3 {
+    color: #174b7a;
+    margin-bottom: 18px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #174b7a;
+}
+
+/* Buttons */
+
+button {
+    padding: 10px 17px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 12px 5px 0 0;
+}
+
+.schedule-btn {
+    background: #174b7a;
+    color: white;
+}
+
+.reset-btn {
+    background: #ddd;
+    color: #333;
+}
+
+/* Summary Cards */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 25px 0;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+    border-left: 5px solid #174b7a;
+}
+
+.card h4 {
+    color: #666;
+    font-size: 14px;
+}
+
+.card p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #174b7a;
+    margin-top: 10px;
+}
+
+/* Table Section */
+
+.table-box {
+    background: white;
+    padding: 22px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #ddd;
+    margin-top: 25px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+th {
+    background: #174b7a;
+    color: white;
+    padding: 13px;
+    text-align: left;
+}
+
+td {
+    padding: 13px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f1f5fa;
+}
+
+/* Status Badges */
+
+.badge {
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.SCHEDULED {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.COMPLETED {
+    background: #d4edda;
+    color: #155724;
+}
+
+.CANCELLED {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.NO-SHOW {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* Action Buttons */
+
+.action-btn {
+    padding: 7px 10px;
+    font-size: 11px;
+    margin: 3px;
+}
+
+.reschedule {
+    background: #174b7a;
+    color: white;
+}
+
+.feedback {
+    background: #198754;
+    color: white;
+}
+
+.no-show {
+    background: #dc3545;
+    color: white;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+
+/* Responsive */
+
+@media(max-width: 850px) {
+
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media(max-width: 500px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+
+<header>
+
+    <div class="logo">
+        Kiran<span>Academy</span>
+    </div>
+
+    <p>Enquiry: 8888809416</p>
+
+</header>
+
+
+<div class="container">
+
+<h2>Interview Management</h2>
+
+
+<!-- Interview Scheduling Form -->
+
+<div class="form-box">
+
+<h3>Schedule Interview</h3>
+
+<form id="interviewForm">
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label>Candidate</label>
+
+        <select id="candidate" required>
+            <option value="">Select Candidate</option>
+            <option>Rahul Patil</option>
+            <option>Priya Sharma</option>
+            <option>Amit Kumar</option>
+            <option>Sneha Patil</option>
+            <option>Rohit Jadhav</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Company</label>
+
+        <select id="company" required>
+            <option value="">Select Company</option>
+            <option>Infosys</option>
+            <option>TCS</option>
+            <option>Wipro</option>
+            <option>Accenture</option>
+            <option>Capgemini</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Job</label>
+
+        <select id="job" required>
+            <option value="">Select Job</option>
+            <option>Associate Java Developer</option>
+            <option>Python Developer</option>
+            <option>.NET Developer</option>
+            <option>SQL Developer</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Interview Round</label>
+
+        <select id="round" required>
+            <option value="">Select Round</option>
+            <option>Aptitude</option>
+            <option>Technical</option>
+            <option>Managerial</option>
+            <option>HR</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Interview Date</label>
+
+        <input type="date" id="date" required>
+    </div>
+
+
+    <div class="form-group">
+        <label>Interview Time</label>
+
+        <input type="time" id="time" required>
+    </div>
+
+
+    <div class="form-group">
+        <label>Mode</label>
+
+        <select id="mode" required>
+            <option value="">Select Mode</option>
+            <option>ONLINE</option>
+            <option>OFFLINE</option>
+            <option>TELEPHONIC</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Interviewer Name</label>
+
+        <input type="text" id="interviewer"
+        placeholder="Enter Interviewer Name">
+    </div>
+
+</div>
+
+<button type="submit" class="schedule-btn">
+    Schedule Interview
+</button>
+
+<button type="reset" class="reset-btn">
+    Reset
+</button>
+
+</form>
+
+</div>
+
+
+<!-- Summary Cards -->
+
+<div class="cards">
+
+    <div class="card">
+        <h4>Total Interviews</h4>
+        <p id="total">0</p>
+    </div>
+
+    <div class="card">
+        <h4>Today's Interviews</h4>
+        <p id="today">0</p>
+    </div>
+
+    <div class="card">
+        <h4>Upcoming Interviews</h4>
+        <p id="upcoming">0</p>
+    </div>
+
+    <div class="card">
+        <h4>Completed Interviews</h4>
+        <p id="completed">0</p>
+    </div>
+
+</div>
+
+
+<!-- Search Section -->
+
+<div class="form-box">
+
+<h3>Search Interviews</h3>
+
+<div class="form-grid">
+
+    <div class="form-group">
+        <label>Candidate Name</label>
+
+        <input type="text" id="searchCandidate"
+        placeholder="Search Candidate">
+    </div>
+
+    <div class="form-group">
+        <label>Company</label>
+
+        <select id="searchCompany">
+            <option value="">All Companies</option>
+            <option>Infosys</option>
+            <option>TCS</option>
+            <option>Wipro</option>
+            <option>Accenture</option>
+            <option>Capgemini</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Interview Status</label>
+
+        <select id="searchStatus">
+            <option value="">All Status</option>
+            <option>SCHEDULED</option>
+            <option>COMPLETED</option>
+            <option>CANCELLED</option>
+            <option>NO-SHOW</option>
+        </select>
+    </div>
+
+</div>
+
+<button class="schedule-btn" onclick="searchInterviews()">
+    Search
+</button>
+
+<button class="reset-btn" onclick="resetSearch()">
+    Reset
+</button>
+
+</div>
+
+
+<!-- Interview Table -->
+
+<div class="table-box">
+
+<h3>Interview List</h3>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+    <th>Interview ID</th>
+    <th>Candidate</th>
+    <th>Company</th>
+    <th>Job</th>
+    <th>Round</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Mode</th>
+    <th>Interviewer</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody id="interviewTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+Kiran Academy | Recruitment & Placement Management System
+</footer>
+
+
+<script>
+
+// Sample Interview Data
+
+let interviews = [
+
+{
+    id: "INT1008",
+    candidate: "Rahul Patil",
+    company: "Infosys",
+    job: "Associate Java Developer",
+    round: "Technical",
+    date: "2026-11-03",
+    time: "11:30",
+    mode: "ONLINE",
+    interviewer: "Mr. Amit",
+    status: "SCHEDULED",
+    feedback: ""
+},
+
+{
+    id: "INT1009",
+    candidate: "Priya Sharma",
+    company: "TCS",
+    job: "Python Developer",
+    round: "Aptitude",
+    date: "2026-11-01",
+    time: "14:00",
+    mode: "OFFLINE",
+    interviewer: "Mr. Raj",
+    status: "SCHEDULED",
+    feedback: ""
+},
+
+{
+    id: "INT1010",
+    candidate: "Amit Kumar",
+    company: "Wipro",
+    job: ".NET Developer",
+    round: "HR",
+    date: "2026-10-29",
+    time: "10:30",
+    mode: "TELEPHONIC",
+    interviewer: "Ms. Neha",
+    status: "COMPLETED",
+    feedback: "Good communication skills."
+}
+
+];
+
+
+// Load Saved Data
+
+let saved = localStorage.getItem("rpmsInterviews");
+
+if (saved) {
+    interviews = JSON.parse(saved);
+}
+
+
+// Save Data
+
+function saveData() {
+
+    localStorage.setItem(
+        "rpmsInterviews",
+        JSON.stringify(interviews)
+    );
+
+}
+
+
+// Format Date
+
+function formatDate(date) {
+
+    return new Date(date + "T00:00:00")
+        .toLocaleDateString("en-GB");
+
+}
+
+
+// Display Interviews
+
+function displayInterviews(data) {
+
+    let table = document.getElementById("interviewTable");
+
+    table.innerHTML = "";
+
+    data.forEach(item => {
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${item.id}</td>
+            <td>${item.candidate}</td>
+            <td>${item.company}</td>
+            <td>${item.job}</td>
+            <td>${item.round}</td>
+            <td>${formatDate(item.date)}</td>
+            <td>${item.time}</td>
+            <td>${item.mode}</td>
+            <td>${item.interviewer || "-"}</td>
+
+            <td>
+                <span class="badge ${item.status}">
+                    ${item.status}
+                </span>
+            </td>
+
+            <td>
+
+                <button class="action-btn reschedule"
+                onclick="rescheduleInterview('${item.id}')">
+                    Reschedule
+                </button>
+
+                <button class="action-btn feedback"
+                onclick="addFeedback('${item.id}')">
+                    Feedback
+                </button>
+
+                <button class="action-btn no-show"
+                onclick="markNoShow('${item.id}')">
+                    No Show
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    if (data.length === 0) {
+
+        table.innerHTML = `
+        <tr>
+            <td colspan="11" style="text-align:center">
+                No interviews found
+            </td>
+        </tr>`;
+
+    }
+
+    updateSummary();
+
+}
+
+
+// Update Summary Cards
+
+function updateSummary() {
+
+    let currentDate = new Date().toLocaleDateString("en-CA");
+
+    document.getElementById("total").innerText =
+        interviews.length;
+
+    document.getElementById("today").innerText =
+        interviews.filter(i =>
+            i.date === currentDate &&
+            i.status === "SCHEDULED"
+        ).length;
+
+    document.getElementById("upcoming").innerText =
+        interviews.filter(i =>
+            i.date > currentDate &&
+            i.status === "SCHEDULED"
+        ).length;
+
+    document.getElementById("completed").innerText =
+        interviews.filter(i =>
+            i.status === "COMPLETED"
+        ).length;
+
+}
+
+
+// Find Interview
+
+function findInterview(id) {
+
+    return interviews.find(i => i.id === id);
+
+}
+
+
+// Schedule Interview
+
+document.getElementById("interviewForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let item = {
+
+        id: "INT" + (1000 + interviews.length + 1),
+
+        candidate: document.getElementById("candidate").value,
+
+        company: document.getElementById("company").value,
+
+        job: document.getElementById("job").value,
+
+        round: document.getElementById("round").value,
+
+        date: document.getElementById("date").value,
+
+        time: document.getElementById("time").value,
+
+        mode: document.getElementById("mode").value,
+
+        interviewer: document.getElementById("interviewer").value,
+
+        status: "SCHEDULED",
+
+        feedback: ""
+
+    };
+
+
+    interviews.push(item);
+
+    saveData();
+
+    displayInterviews(interviews);
+
+    alert("Interview Scheduled Successfully!");
+
+    this.reset();
+
+});
+
+
+// Reschedule Interview
+
+function rescheduleInterview(id) {
+
+    let item = findInterview(id);
+
+    if (!item) return;
+
+    let newDate = prompt(
+        "Enter new date (YYYY-MM-DD):",
+        item.date
+    );
+
+    if (!newDate) return;
+
+    let newTime = prompt(
+        "Enter new time (HH:MM):",
+        item.time
+    );
+
+    if (!newTime) return;
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(newDate) ||
+        !/^\d{2}:\d{2}$/.test(newTime)) {
+
+        alert("Invalid date or time format.");
+        return;
+
+    }
+
+    item.date = newDate;
+    item.time = newTime;
+    item.status = "SCHEDULED";
+
+    saveData();
+
+    displayInterviews(interviews);
+
+    alert("Interview Rescheduled Successfully!");
+
+}
+
+
+// Add Feedback
+
+function addFeedback(id) {
+
+    let item = findInterview(id);
+
+    if (!item) return;
+
+    let feedback = prompt(
+        "Enter Interview Feedback:",
+        item.feedback
+    );
+
+    if (feedback === null) return;
+
+    item.feedback = feedback;
+
+    saveData();
+
+    alert("Feedback Saved Successfully!");
+
+}
+
+
+// Mark No Show
+
+function markNoShow(id) {
+
+    let item = findInterview(id);
+
+    if (!item) return;
+
+    if (confirm("Mark this candidate as No Show?")) {
+
+        item.status = "NO-SHOW";
+
+        saveData();
+
+        displayInterviews(interviews);
+
+        alert("Candidate marked as No Show!");
+
+    }
+
+}
+
+
+// Search Interviews
+
+function searchInterviews() {
+
+    let candidate = document.getElementById("searchCandidate")
+        .value.toLowerCase();
+
+    let company = document.getElementById("searchCompany")
+        .value;
+
+    let status = document.getElementById("searchStatus")
+        .value;
+
+    let result = interviews.filter(item => {
+
+        return item.candidate.toLowerCase().includes(candidate) &&
+
+        (!company || item.company === company) &&
+
+        (!status || item.status === status);
+
+    });
+
+    displayInterviews(result);
+
+}
+
+
+// Reset Search
+
+function resetSearch() {
+
+    document.getElementById("searchCandidate").value = "";
+
+    document.getElementById("searchCompany").value = "";
+
+    document.getElementById("searchStatus").value = "";
+
+    displayInterviews(interviews);
+
+}
+
+
+// Initial Display
+
+displayInterviews(interviews);
+
+</script>
+
+</body>
+</html>
